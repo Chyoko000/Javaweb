@@ -11,6 +11,6 @@
     <title>$Title$</title>
   </head>
   <body>
-     Hell JSP&Servlet
+     初始页面
   </body>
 </html>
