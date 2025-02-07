@@ -1,5 +1,5 @@
 <%@ page import="com.situ.web.pojo.Student" %>
-<%@ page import="java.util.List" %><%--
+<%@ page import="java.util.List" %>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
@@ -10,9 +10,6 @@
 <body>
   <%--${list}--%>
   <%
-      //JSP页面可以嵌套java代码
-      //JSP脚本：在这里可以任意写java代码
-      //request、response Jsp页面的内置对象
       List<Student> list = (List<Student>) request.getAttribute("list");
   %>
   <a class="btn btn-success" href="student_add.jsp">添加</a>
