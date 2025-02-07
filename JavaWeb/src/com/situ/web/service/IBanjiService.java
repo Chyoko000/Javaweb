@@ -1,20 +1,16 @@
-package com.situ.web.dao;
+package com.situ.web.service;
 
 import com.situ.web.pojo.Banji;
+import com.situ.web.util.PageInfo;
 
 import java.util.List;
 
-/**
- * 接口描述的是能提供的功能的清单
- */
-public interface IBanjiDao {
+public interface IBanjiService {
     List<Banji> selectAll();
     void deleteById(int id);
     void add(Banji banji);
     Banji selectById(int id);
     void update(Banji banji);
 
-    List<Banji> selectByPage(int offset, int pageSize);
-
-    int selectTotalCount();
+    PageInfo<Banji> selectByPage(int pageNo, int pageSize);
 }

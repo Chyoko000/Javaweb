@@ -1,5 +1,7 @@
 package com.situ.web.servlet;
 
+import com.situ.web.dao.IBanjiDao;
+import com.situ.web.dao.impl.BanjiDaoImpl;
 import com.situ.web.pojo.Student;
 import com.situ.web.util.JDBCUtil;
 
@@ -8,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,16 +20,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-
+/**
+ * 浏览器可以访问Jsp，也可以访问Servlet
+ * http://localhost:8080/JavaWeb/student_list.jsp
+ * http://localhost:8080/JavaWeb/student
+ */
 @WebServlet("/student")
 public class StudentServlet extends HttpServlet {
+    private IBanjiDao banjiDao = new BanjiDaoImpl();
 
     //访问Servlet默认访问service方法
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-        System.out.println("StudentServlet.service");//正常输出
-
+        System.out.println("StudentServlet.service");
         req.setCharacterEncoding("UTF-8");
         // http://localhost:8080/JavaWeb/student?method=selectAll
         // http://localhost:8080/JavaWeb/student?method=deleteById&id=1
@@ -156,6 +162,7 @@ public class StudentServlet extends HttpServlet {
             JDBCUtil.close(connection, statement, null);
         }
 
+        //添加之后，重定向
         resp.sendRedirect("/student?method=selectAll");
     }
 

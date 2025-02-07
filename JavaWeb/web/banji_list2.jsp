@@ -1,7 +1,6 @@
 <%@ page import="com.situ.web.pojo.Student" %>
 <%@ page import="java.util.List" %>
 <%@ page import="com.situ.web.pojo.Banji" %>
-<%@ page import="com.situ.web.util.PageInfo" %>\
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -14,8 +13,7 @@
     //JSP页面可以嵌套java代码
     //JSP脚本：在这里可以任意写java代码
     //request、response Jsp页面的内置对象
-    //List<Banji> list = (List<Banji>) request.getAttribute("list");
-    PageInfo<Banji> pageInfo = (PageInfo<Banji>) request.getAttribute("pageInfo");
+    List<Banji> list = (List<Banji>) request.getAttribute("list");
 %>
 <a class="btn btn-success" href="banji_add.jsp">添加</a>
 <a class="btn btn-success" href="/banji?method=toBanjiAdd">添加</a>
@@ -28,7 +26,7 @@
         <td>编辑</td>
     </tr>
     <%
-        for (Banji banji : pageInfo.getList()) {
+        for (Banji banji : list) {
     %>
     <tr>
         <td><%=banji.getId()%></td>
@@ -49,14 +47,11 @@
                 <span aria-hidden="true">&laquo;</span>
             </a>
         </li>
-        <%
-            for (int i = 1; i <= pageInfo.getTotalPage(); i++) {
-        %>
-        <li><a href="/banji?method=selectByPage&pageNo=<%=i%>&pageSize=5"><%=i%></a></li>
-        <%
-            }
-        %>
-
+        <li><a href="#">1</a></li>
+        <li><a href="#">2</a></li>
+        <li><a href="#">3</a></li>
+        <li><a href="#">4</a></li>
+        <li><a href="#">5</a></li>
         <li>
             <a href="#" aria-label="Next">
                 <span aria-hidden="true">&raquo;</span>
@@ -75,4 +70,3 @@
 </script>
 </body>
 </html>
-
