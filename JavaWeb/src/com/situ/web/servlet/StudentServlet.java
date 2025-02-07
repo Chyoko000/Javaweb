@@ -24,7 +24,9 @@ public class StudentServlet extends HttpServlet {
     //访问Servlet默认访问service方法
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        System.out.println("StudentServlet.service");
+
+        System.out.println("StudentServlet.service");//正常输出
+
         req.setCharacterEncoding("UTF-8");
         // http://localhost:8080/JavaWeb/student?method=selectAll
         // http://localhost:8080/JavaWeb/student?method=deleteById&id=1
@@ -154,7 +156,6 @@ public class StudentServlet extends HttpServlet {
             JDBCUtil.close(connection, statement, null);
         }
 
-        //添加之后，重定向
         resp.sendRedirect("/student?method=selectAll");
     }
 

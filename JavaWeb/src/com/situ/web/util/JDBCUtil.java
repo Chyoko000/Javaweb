@@ -42,6 +42,8 @@ public class JDBCUtil {
 //            throw new RuntimeException(e);
 //        }
 //    }
+
+    //自写的静态代码块测试db是否正常加载
     static {
         try {
             // 1. 通过当前类获取类加载器
@@ -57,7 +59,6 @@ public class JDBCUtil {
                 System.out.println("SUCCESS: db.properties 文件已找到！");
             }
 
-            // 3. 加载配置
             Properties properties = new Properties();
             properties.load(inputStream);
 
