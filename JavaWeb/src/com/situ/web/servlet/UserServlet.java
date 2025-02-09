@@ -20,6 +20,9 @@ public class UserServlet extends HttpServlet {
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         //req.setCharacterEncoding("UTF-8");
         String method = req.getParameter("method");
+        if (method == null || "".equals(method)) {
+            method = "selectByPage";
+        }
         switch (method) {
             case "login":
                 login(req, resp);
@@ -56,3 +59,4 @@ public class UserServlet extends HttpServlet {
         }
     }
 }
+

@@ -4,6 +4,7 @@ import com.situ.web.dao.IBanjiDao;
 import com.situ.web.dao.impl.BanjiDaoImpl;
 import com.situ.web.pojo.Banji;
 import com.situ.web.pojo.Student;
+import com.situ.web.pojo.User;
 import com.situ.web.service.IBanjiService;
 import com.situ.web.service.impl.BanjiServiceImpl;
 import com.situ.web.util.JDBCUtil;
@@ -14,6 +15,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -32,6 +34,17 @@ public class BanjiServlet extends HttpServlet {
         // /banji?method=selectAll
         // /banji?method=add
         req.setCharacterEncoding("UTF-8");
+
+
+
+        //过滤器
+//        HttpSession session = req.getSession();
+//        User user = (User) session.getAttribute("user");
+//        if (user == null) {
+//            resp.sendRedirect("/login.jsp");
+//            return;
+//        }//如果没登陆就会重定向到登陆界面
+
         String method = req.getParameter("method");
         if (method == null || method.equals("")) {
             method = "selectByPage";//方法名没大写跳转出问题是因为跳转了默认的

@@ -3,6 +3,7 @@ package com.situ.web.servlet;
 import com.situ.web.dao.IBanjiDao;
 import com.situ.web.dao.impl.BanjiDaoImpl;
 import com.situ.web.pojo.Student;
+import com.situ.web.pojo.User;
 import com.situ.web.util.JDBCUtil;
 
 import javax.servlet.ServletException;
@@ -20,11 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-/**
- * 浏览器可以访问Jsp，也可以访问Servlet
- * http://localhost:8080/JavaWeb/student_list.jsp
- * http://localhost:8080/JavaWeb/student
- */
+
 @WebServlet("/student")
 public class StudentServlet extends HttpServlet {
     private IBanjiDao banjiDao = new BanjiDaoImpl();
@@ -37,6 +34,17 @@ public class StudentServlet extends HttpServlet {
         // http://localhost:8080/JavaWeb/student?method=selectAll
         // http://localhost:8080/JavaWeb/student?method=deleteById&id=1
         // http://localhost:8080/JavaWeb/student?method=add
+
+
+        //过滤器
+//        HttpSession session = req.getSession();
+//        User user = (User) session.getAttribute("user");
+//        if (user == null) {
+//            resp.sendRedirect("/login.jsp");
+//            return;
+//        }//如果没登陆就会重定向到登陆界面
+
+
         String method = req.getParameter("method");
         if (method == null || method.equals("")) {
             method = "selectAll";
