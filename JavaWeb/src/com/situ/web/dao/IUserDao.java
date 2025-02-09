@@ -1,7 +1,7 @@
-package com.situ.web.service;
+package com.situ.web.dao;
 
 import com.situ.web.pojo.User;
 
-public interface IUserService {
+public interface IUserDao {
     User login(String name, String password);
 }
