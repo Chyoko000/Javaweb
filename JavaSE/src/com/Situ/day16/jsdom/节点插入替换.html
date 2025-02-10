@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<ul>
+			<li mean='热情'>red</li>
+			<li mean='生机'>blue</li>
+			<li mean='冷静'>green</li>
+		</ul> 
+		<ul>
+			<li mean='饿'>orange</li>
+		</ul> 
+		
+		<script type="text/javascript">
+			window.onload = function() {
+				var blue = document.getElementsByTagName('li')[1];
+				var orange = document.getElementsByTagName('li')[3];
+				var firstUl = document.getElementsByTagName('ul')[0];
+				//firstUl.insertBefore(orange, blue);
+				firstUl.replaceChild(orange, blue);
+			}
+		</script>
+	</body>
+</html>

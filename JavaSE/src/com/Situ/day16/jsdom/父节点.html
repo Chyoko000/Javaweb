@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		
+	</head>
+	<body>
+		<ul>
+			<li>red</li>
+			<li>blue</li>
+			<li>green</li>
+		</ul>
+		
+		<script type="text/javascript">
+			window.onload = function() {
+				var blue = document.getElementsByTagName("li")[1];
+				console.log(blue);
+				console.log(blue.parentNode);
+				console.log(blue.parentNode.parentNode);
+				console.log(blue.parentNode.parentNode.parentNode);
+				console.log(blue.parentNode.parentNode.parentNode.parentNode);
+				console.log(blue.parentNode.parentNode.parentNode.parentNode.parentNode);
+			}
+			
+		</script>
+	</body>
+</html>

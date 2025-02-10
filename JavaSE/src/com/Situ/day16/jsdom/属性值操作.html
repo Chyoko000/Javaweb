@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		
+		<script type="text/javascript">
+			window.onload = function() {
+				var baidu = document.getElementsByTagName('a')[0];
+				/* console.log(baidu.href);
+				console.log(baidu.addr);// undefined
+				console.log(baidu.target);
+				console.log(baidu.className);//特殊 */
+				
+				console.log(baidu.getAttribute('href'));
+				console.log(baidu.getAttribute('addr'));
+				console.log(baidu.getAttribute('target'));
+				console.log(baidu.getAttribute('class'));
+			}
+			
+			function f1() {
+				var baidu = document.getElementsByTagName('a')[0];
+				/* baidu.href = 'http://www.163.com';
+				baidu.target = '_self';
+				baidu.addr = 'tianjin'; 
+				baidu.className = 'orandge'; */
+				
+				baidu.setAttribute('addr', 'shanghai');
+				baidu.setAttribute('class', 'orange'); 
+			}
+		</script>
+	</head>
+	<body>
+		<a href="http://www.baidu.com" addr="beijing" target="_blank" class="apple">百度</a><br/>
+		
+		<input type="button" value="修改属性"  onclick="f1()"/>
+	</body>
+</html>
