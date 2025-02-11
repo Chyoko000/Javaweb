@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+    <head>
+        <title>新建网页</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="description" content="" />
+        <meta name="keywords" content="" />
+
+		<script src="../../js/jquery-2.1.4.js" type="text/javascript" charset="utf-8"></script>
+        <script type="text/javascript">
+        function f1(){
+            //隐藏 hidden
+            $('div').slideUp(3000);
+        }
+        function f2(){
+            //显示 show
+            $('div').slideDown(3000);
+        }
+        function f3(){
+            $('div').slideToggle(2000);
+        }
+		
+		window.onload = function() {
+			
+		}
+
+       $(function(){// 类似于window.onload
+        	//定时器：每隔两秒中调用f3这个函数
+			// Interval间隔
+			// 1秒=1000毫秒
+            setInterval('f3()', 2000);
+        });
+        </script>
+        <style type="text/css">
+        	div {width:300px; height:200px; background-color:blue;}
+        </style>
+    </head>
+    <body>
+        <h2>垂直动画效果</h2>
+        <div></div>
+        <input type="button" value="隐藏" onclick="f1()" />
+        <input type="button" value="显示" onclick="f2()" />
+        <input type="button" value="开关" onclick="f3()" />
+    </body>
+</html>

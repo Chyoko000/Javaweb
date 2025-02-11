@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+    <head>
+        <title>新建网页</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="description" content="" />
+        <meta name="keywords" content="" />
+		<script src="../../js/jquery-2.1.4.js" type="text/javascript" charset="utf-8"></script>
+
+        <script type="text/javascript">
+        function f1(){
+            //① $(":contains(text)")
+            //$("div:contains(beijing)").css('background-color','red');
+
+            //② $(":empty")
+            $("div:empty").css('width','200px');
+            $("div:empty").css('height','100px');
+            $("div:empty").css('background-color','pink');
+
+            //③ $(":has(selector)") has意思就是孩子里面有没有带有指定选择器
+            //console.log($("div:has(.orange)"));
+
+            //④ $(":parent")
+            console.log($("div:parent"));
+        }
+        </script>
+    </head>
+    <body>
+        <h1>内容过滤选择器</h1>
+		
+        <div>linken love beijing</div>
+        <div>jack love shanghai</div>
+        <div></div>
+        <div><img /></div>
+        <div>      </div>
+        <div><p class="orange"></p></div>
+        <div><span class="orange"></span></div>
+
+        <input type="button" value="触发" onclick="f1()" />
+    </body>
+</html>

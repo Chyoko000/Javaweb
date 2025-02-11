@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+    <head>
+        <title>新建网页</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="description" content="" />
+        <meta name="keywords" content="" />
+
+		<script src="../../js/jquery-2.1.4.js" type="text/javascript" charset="utf-8"></script>
+
+        <link href="11.css" type="text/css" rel="stylesheet" />
+        <script type="text/javascript">
+        function f1(){
+            //jquery的css方法获得样式，"行内、内部、外部" 样式均可以获得
+            // 普通的dom方式只可以获得 行内 样式
+            /*console.log($('div').css('width'));//行内样式 getWidth
+			 // document.getElementsByTagName('div')[0].style.width
+            console.log($('div').css('height'));
+            console.log($('div').css('background-color'));
+            console.log($('div').css('color'));//内部样式
+            console.log($('div').css('font-size'));//外部样式*/
+
+            //
+            //例如：border----->border-left(top/right/bottom)-style  border-left-color border-left-width
+            //      margin----->margin-left/top/right/bottom
+            //      padding----->padding-left/top/right/bottom
+            //      background----->background-color/image
+            console.log($('div').css('border'));//4px solid rgb(0, 0, 255)
+            console.log($('div').css('border-top-color'));//rgb(0, 0, 255)
+            console.log($('div').css('border-top-width'));//4px
+            console.log($('div').css('border-top-style'));//solid
+			console.log($('div').css('color'));
+        }
+        function f2(){
+            //有就更改，没有就添加
+            //均设置为“行内”样式
+            $('div').css('width','300px');
+            $('div').css('background-color','lightgreen');
+            
+            //把 复合样式 变为 具体样式 可以设置
+            $('div').css('border-right-color','red');
+            $('div').css('border-right-width','10px');
+        }
+    
+        </script>
+        <style type="text/css">
+        	div{
+				color:red; 
+				border:4px solid blue;
+				border-top-color: red;
+			}
+        </style>
+    </head>
+    <body>
+        <h1>css样式快捷操作</h1>
+		
+        <div class="apple" style="width: 100px;height: 100px;"></div>
+        <div class="apple" style="width:200px; height:150px; background-color:lightblue;">this is jquery subject</div>
+		
+        <input type="button" value="获取" onclick="f1()" />
+        <input type="button" value="设置" onclick="f2()" />
+    </body>
+</html>

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<span id="spanId">Hellospan</span><br>
+<button onclick="clickMe()">点击</button>
+<script>
+  function clickMe(){
+    var spanObj=document.getElementById('spanId');
+    spanObj.innerserHTML='<h1 style="color:#39c5bb;">innerText</h1>';
+  }
+</script>
+</body>
+</html>

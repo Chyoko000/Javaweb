@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+    <head>
+        <title>新建网页</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="description" content="" />
+        <meta name="keywords" content="" />
+		<script src="../../js/jquery-2.1.4.js" type="text/javascript" charset="utf-8"></script>
+        <script type="text/javascript">
+        //② bind()事件绑定简单使用
+        //为多个不同类型事件绑定同一个处理
+        //注意：事件彼此通过“一个”空格分隔
+		/* $(function() {
+			
+		});
+		window.onload = function() {
+			
+		} */
+		
+        $(function(){
+            $('div').on('click mouseover mouseout',function(){
+                console.log('hello');
+            });
+			
+        });
+        </script>
+
+        <style type="text/css">
+        div {width:300px; height:200px; background-color:lightblue;}
+        </style>
+    </head>
+    <body>
+        <h2>jquery事件绑定</h2>
+        <div></div>
+    </body>
+</html>
