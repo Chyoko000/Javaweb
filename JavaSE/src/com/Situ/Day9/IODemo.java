@@ -99,6 +99,7 @@ public class IODemo {
         catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
+
         catch (IOException e) {
             throw new RuntimeException(e);
         }////处理所有的io异常
