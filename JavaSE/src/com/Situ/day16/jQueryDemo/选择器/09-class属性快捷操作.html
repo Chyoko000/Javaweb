@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+    <head>
+        <title>新建网页</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="description" content="" />
+        <meta name="keywords" content="" />
+
+		<script src="../../js/jquery-2.1.4.js" type="text/javascript" charset="utf-8"></script>
+
+        <script type="text/javascript">
+        function f1(){
+            //设置class属性信息 class="apple orange pear"
+            /*$("div").attr('class','apple');
+            $("div").attr('class','orange');
+            $("div").attr('class','pear');*/
+            //以上三行代码同时执行，后者覆盖前者，class最后体现pear的信息
+
+            //给class属性追加信息值
+            $("div").addClass('apple');
+            $("div").addClass('orange');
+            $("div").addClass('pear');
+        }
+        function f2(){
+            //删除class属性的信息值
+			//$('div').removeAttr('class');// 全部移除掉
+            $('div').removeClass('orange');
+            //$('div').removeClass('apple');
+            //$('div').removeClass('pear');
+        }
+        function f3(){
+            //开关class属性值操作 toggle：开关(每次操作在原来的状态取反)
+            $('div').toggleClass('orange');
+        }
+        </script>
+        <style type="text/css">
+        .apple{width:300px; height:200px; border:2px solid blue;}
+        .orange{background-color:lightblue;}
+        .pear{font-size:30px;}
+        </style>
+    </head>
+    <body>
+        <h1>class属性快捷操作</h1>
+        
+        <div  style="">this is jquery subject</div>
+
+        <input type="button" value="设置" onclick="f1()" />
+        <input type="button" value="删除class的属性值" onclick="f2()" />
+        <input type="button" value="开关class属性值操作" onclick="f3()" />
+    </body>
+</html>

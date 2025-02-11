@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+    <head>
+        <title>新建网页</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="description" content="" />
+        <meta name="keywords" content="" />
+
+		<script src="../../js/jquery-2.1.4.js" type="text/javascript" charset="utf-8"></script>
+        <link href="11.css" type="text/css" rel="stylesheet" />
+        <script type="text/javascript">
+        function f1(){
+            //获得选中情况
+            console.log($('.sx:checked').val());
+        }
+        function f2(){
+            //设置选中情况
+            //$(全部单选按钮).val([value值元素])
+            $('.sx').val(['a']);
+        }
+        </script>
+        <style type="text/css">
+        div{color:red; border:4px solid blue;}
+        </style>
+    </head>
+    <body>
+        <h1>单选按钮操作</h1>
+        性别
+        <input type="radio" class="sx" name="sex" value="a" />男&nbsp;
+        <input type="radio" class="sx" name="sex" value="b" />女&nbsp;
+        <input type="radio" class="sx" name="sex" value="c" />保密&nbsp;
+        <br /><br />
+        <input type="button" value="获取" onclick="f1()" />
+        <input type="button" value="设置" onclick="f2()" />
+    </body>
+</html>

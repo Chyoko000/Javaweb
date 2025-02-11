@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+    <head>
+        <title>新建网页</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="description" content="" />
+        <meta name="keywords" content="" />
+
+		<script src="../../js/jquery-2.1.4.js" type="text/javascript" charset="utf-8"></script>
+        <script type="text/javascript">
+        function f1(){
+            //许多选择器都可以作为“并且”选择器使用
+            // $(s1s2s3s4s5)----->并且选择器(保证不会产生歧义)
+            //$(s1,s2,s3,s4,s5)----->联合选择器
+            //$("li.hero").css('color','blue');
+            //$(".hero").css('color','blue');
+            //$(':header.hero').css('background-color','green');
+            $('.hero:header').css('color','red');
+        }
+        </script>
+    </head>
+    <body>
+        <h1>并且选择器</h1>
+		
+        <h2 class="hero">并且选择器</h2>
+        <h3 class="hero">并且选择器</h3>
+        <h4>并且选择器</h4>
+        <ul>
+            <li>刘备</li>
+            <li id="zhang">张飞</li>
+            <li class="hero">关羽</li>
+            <li id="zhao">赵云</li>
+
+            <li class="hero">孙权</li>
+            <li>周瑜</li>
+            <li class="hero">黄盖</li>
+            <li>吕蒙</li>
+        </ul>
+
+        <input type="button" value="触发" onclick="f1()" />
+    </body>
+</html>

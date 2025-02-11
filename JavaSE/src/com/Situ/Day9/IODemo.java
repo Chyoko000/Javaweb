@@ -1,6 +1,6 @@
 package com.Situ.Day9;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 import java.io.*;
 import java.util.Arrays;
@@ -69,24 +69,44 @@ public class IODemo {
 
     @Test
     public void test4() {
+        //声明两个变量并初始化，字符输入流和字符输出流
         FileReader fileReader = null;
+        //如果 fileReader 和 fileWriter 只在 try 块内部定义，
+        // 那么 finally 块中无法访问它们，会导致编译错误：
         FileWriter fileWriter = null;
         try {
             fileReader = new FileReader("io.txt");
             fileWriter = new FileWriter("io_back.txt");
-            char[] buffer = new char[10];
-            int length = -1;
-            while ((length = fileReader.read(buffer)) != -1) {
-                System.out.println(length);
-                System.out.println(Arrays.toString(buffer));
+//            new FileReader("io.txt")：打开 io.txt 文件，准备读取内容。
+//            new FileWriter("io_back.txt")：创建或覆盖 io_back.txt，用于写入数据
+            char[] buffer = new char[10];//定义一个长度为10的数组（缓冲区）
+            int length = -1;//用于存储实际存储到的字符
+            while ((length = fileReader.read(buffer)) != -1) {//fileReader.read(buffer)每次读取十个字符
+                //length直接跳过0，为空的时候会返回-1
+                System.out.println(length);//输出这次循环获得的字符数
+                //可以设置一个条件比如length小于10
+                System.out.println(Arrays.toString(buffer));//打印整个buffer数组
                 //fileWriter.write(buffer);
-                fileWriter.write(buffer, 0, length);
+                fileWriter.write(buffer, 0, length);//缓冲区 写入的起始索引，实际读取的字符数
+                //这里length的值是取自循环，内容会复写
+                //10[d, a, i, d, a, i, d, a, s, h]
+                //6[i, x, i, o, n, g, d, a, s, h]//io为daidaidashixiong
             }
-        } catch (FileNotFoundException e) {
+        }
+        /*catch (IOException e) {
+            e.printStackTrace();
+        }*/
+        catch (FileNotFoundException e) {
             throw new RuntimeException(e);
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             throw new RuntimeException(e);
-        } finally { //关闭流
+        }////处理所有的io异常
+
+        //FileWriter 默认使用缓冲机制，数据不会立即写入文件，而是先存入缓冲区。
+        // 只有当缓冲区满了、手动 flush()，或 close() 方法被调用时，
+        // 数据才会被真正写入文件。不然数据仍在缓冲区
+        finally {
             if (fileWriter != null) {
                 try {
                     fileWriter.close();
@@ -104,18 +124,54 @@ public class IODemo {
         }
     }
 
-    //字节流
+    @Test//练习
+    public void testio(){
+        FileReader a=null;
+        FileWriter b=null;//声明
+        try{
+            a=new FileReader("io.txt");
+            b=new FileWriter("io_t.txt");//定义
+            char[]buffer=new char[10];
+            int lenght=-1;
+            while((lenght=a.read(buffer))!=-1){
+                System.out.println(lenght);
+                System.out.println(Arrays.toString(buffer));
+                b.write(buffer,0,lenght);
+            }
+        } catch (FileNotFoundException e) {//处理异常
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }finally {//
+            if (b != null) {
+                try {
+                    b.close();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            if (a != null) {
+                try {
+                    a.close();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
+    }
+
+    //字节流这个跟上边同理
     @Test
     public void test45() {
         FileInputStream fileInputStream = null;
         FileOutputStream fileOutputStream = null;
         try {
             fileInputStream = new FileInputStream("640.jpg");
-            fileOutputStream = new FileOutputStream("640.jpg");
-            byte[] buffer = new byte[1024];
+            fileOutputStream = new FileOutputStream("640_back.jpg");
+            byte[] buffer = new byte[9999999];
             int length = -1;
             while ((length = fileInputStream.read(buffer)) != -1) {
-                fileOutputStream.write(buffer, 0, length);
+                fileOutputStream.write(buffer, 0, length);//不打印二是一次性生成
             }
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
@@ -141,7 +197,7 @@ public class IODemo {
 
 
 
-    //
+    //对象流
     @Test
     public void testObjectOutputStream() {
         Student student = new Student();
