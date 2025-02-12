@@ -171,7 +171,7 @@ public class JDBCDemo {
         String sql = "INSERT INTO student(name, age, gender) VALUES(?, ?, ?)";
         try (Connection connection = JDBCUtil.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
-
+            //这三个是填补问号
             statement.setString(1, "张三");
             statement.setInt(2, 23);
             statement.setString(3, "男");
@@ -191,16 +191,25 @@ public class JDBCDemo {
         PreparedStatement statement = null;
         try {
             connection = JDBCUtil.getConnection();
+            //预编译sql语句? 是 占位符，防止 SQL 注入
             String sql = "DELETE FROM student WHERE id=?";
             statement = connection.prepareStatement(sql);
-            statement.setInt(1, 8);
+            statement.setInt(1, 8);//将sql语句中的第一个占位符？替换为8
+            //setXXX(index, value) 用于设置不同类型的参数：
+            //setString(int index, String value)：设置字符串
+            //setDouble(int index, double value)：设置小数
+            //setDate(int index, java.sql.Date value)：设置日期
             System.out.println(statement);
             int count = statement.executeUpdate();
+            //executeUpdate() 用于执行 INSERT、UPDATE、DELETE 语句，返回 影响的行数。
             System.out.println("count: " + count);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } finally {
-            JDBCUtil.close(connection, statement, null);
+            JDBCUtil.close(connection, statement, null);//关闭链接
+            //关闭 ResultSet（结果集）
+            //关闭 Statement（SQL 执行对象，如 PreparedStatement）sql语句
+            //关闭 Connection（数据库连接）数据库链接
         }
     }
 
