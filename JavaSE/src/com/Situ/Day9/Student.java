@@ -25,6 +25,7 @@ public class Student implements Serializable {
     public void setId(Integer id) {
         this.id = id;
     }
+    //上边不加是因为默认。下边加是因为防止参数冲突
 
     public String getName() {
         return name;

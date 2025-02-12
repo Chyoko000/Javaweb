@@ -8,37 +8,47 @@ import java.util.List;
 public class JDBCDemo {
     @Test
     public void test1() {
-        Connection connection = null;
-        Statement statement = null;
-        ResultSet resultSet = null;
+        //也是先声明后定义
+        Connection connection = null;//负责建立Java程序和sql的链接
+        Statement statement = null;//执行sql语句对象
+        ResultSet resultSet = null;//存储sql查询结果
         try {
-
-            //忘记数据库密码在查询里输入下列命令，，，ALTER USER 'root'@'localhost' IDENTIFIED BY 'MyNewPass123';
-
+            //忘记数据库密码在查询里输入下列命令，，，
+            // ALTER USER 'root'@'localhost' IDENTIFIED BY 'MyNewPass123';
             //加载驱动
             Class.forName("com.mysql.cj.jdbc.Driver");
-            //连接对象Connection
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3366/study?useSSL=false&useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2b8",
-                    "root", "1234");
+            //获取数据库信息
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3366/study?useSSL=false&useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2b8", "root", "1234");
             //sql语句
             String sql = "SELECT id,name,age,gender FROM student";
             //创建Statement
             statement = connection.createStatement();
+            //执行查询获取结果集
             resultSet = statement.executeQuery(sql);
+            //遍历结果集
             List<Student> list = new ArrayList<>();
-            while (resultSet.next()) {//判断下一个有没有，没有返回false，如果有返回true，并且指向下一行
-                //当前resultSet执向第一行
-                //while每遍历一次，把这一行的每个字段的值拿出来，封装成Student对象
+            //Student 是列表中存储的元素类型，意味着 list 只能存放 Student 类型的对象。
+            //ArrayList 是 List 接口的实现类，表示一个动态数组，可以存放多个 Student 对象。
+            //new ArrayList<>() 创建了一个新的空列表，没有指定初始大小，默认容量为 10（Java 8 及以后）。
+            while (resultSet.next()) {
+                //指针移动：默认情况下，ResultSet 指向第一行数据之前，调用 next() 向下移动一行，
+                // 如果有数据返回 true，否则返回 false。通过这个判断结束条件
                 int id = resultSet.getInt("id");
                 String name = resultSet.getString("name");
                 int age = resultSet.getInt("age");
                 String gender = resultSet.getString("gender");
+                //封装成student对象
                 Student student = new Student(id, name, age, gender);
-                list.add(student);
+                list.add(student);//list 是一个 ArrayList<Student>，用于存储查询到的 Student 对象。
+                //把当前 Student 对象添加到 list 列表中，形成一个学生对象的列表。
             }
-            for (Student student : list) {
-                System.out.println(student);
+            for (Student student : list) {//打印查询的结果
+                System.out.println(student);// Java 的 增强 for 循环（for-each 循环
             }
+            //for (int i = 0; i < list.size(); i++) {
+            //    Student student = list.get(i);
+            //    System.out.println(student);
+            //}
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         } catch (SQLException e) {

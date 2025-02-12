@@ -107,11 +107,12 @@ public class IODemo {
         // 只有当缓冲区满了、手动 flush()，或 close() 方法被调用时，
         // 数据才会被真正写入文件。不然数据仍在缓冲区
         finally {
-            if (fileWriter != null) {
+            if (fileWriter != null) {  // ① 检查 fileWriter 是否为空，避免空指针异常
                 try {
-                    fileWriter.close();
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
+                    fileWriter.close();  // ② 关闭文件写入流，释放系统资源
+                } catch (IOException e) {  // ③ 处理可能的 IO 异常
+                    throw new RuntimeException(e);  // ④ 如果关闭失败，
+                    // 将异常封装成 RuntimeException 抛出
                 }
             }
             if (fileReader != null) {
@@ -124,7 +125,7 @@ public class IODemo {
         }
     }
 
-    @Test//练习
+    @Test//练习自写
     public void testio(){
         FileReader a=null;
         FileWriter b=null;//声明
@@ -204,18 +205,25 @@ public class IODemo {
         student.setId(1);
         student.setName("zhangsan");
         student.setAge(23);
-        student.setGender("男");
+        student.setGender("男");//ch
 
         ObjectOutputStream objectOutputStream = null;
+        // Java 中用于序列化对象的流。它可以将 Java 对象转换为字节流，并将其写入文件、网络或其他输出流
         FileOutputStream fileOutputStream = null;
+        //写入文件的字节流，它可以将数据写入文件中，支持单个字节或字节数组的写入，
         try {
-            fileOutputStream = new FileOutputStream("student");
+            //由内向外打开流
+            fileOutputStream = new FileOutputStream("student.txt");
+            // ① 创建文件输出流，打开 "student" 文件（如果不存在，则创建）。
             objectOutputStream = new ObjectOutputStream(fileOutputStream);
-            objectOutputStream.writeObject(student);
+            //// ② 创建对象输出流，并包装 fileOutputStream。
+            ////    这个流负责序列化对象，并将数据写入 fileOutputStream 关联的文件中。
+            objectOutputStream.writeObject(student);//这个student指的是类
+            // ③ 将 student 对象序列化，并写入 objectOutputStream（最终写入文件）。
         } catch (IOException e) {
             throw new RuntimeException(e);
         } finally {
-            if (objectOutputStream != null) {
+            if (objectOutputStream != null) {//代码还在缓存区的话关闭流
                 try {
                     objectOutputStream.close();
                 } catch (IOException e) {
@@ -231,7 +239,7 @@ public class IODemo {
             }
         }
     }
-
+    //读取文件恢复一个student类
     @Test
     public void testObjectInputStream() {
         FileInputStream fileInputStream = null;
