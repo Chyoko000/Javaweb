@@ -8,9 +8,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
   <head>
-    <title>$Title$</title>
+    <title>学生管理系统测试</title>
   </head>
   <body>
-  初始页面
+  T初始
   </body>
 </html>

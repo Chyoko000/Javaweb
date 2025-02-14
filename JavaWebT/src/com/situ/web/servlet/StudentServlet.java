@@ -1,5 +1,6 @@
 package com.situ.web.servlet;
 
+//导入 Java 标准库、第三方库或自定义包中的类。
 import com.situ.web.pojo.Student;
 import com.situ.web.util.JDBCUtil;
 
@@ -27,12 +28,12 @@ public class StudentServlet extends HttpServlet {
         Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
+        List<Student> list = new ArrayList<>();
         try {
             connection = JDBCUtil.getConnection();
             String sql = "SELECT id,name,age,gender FROM student";
             statement = connection.prepareStatement(sql);
             resultSet = statement.executeQuery();
-            List<Student> list = new ArrayList<>();
             while (resultSet.next()) {//判断下一个有没有，没有返回false，如果有返回true，并且指向下一行
                 int id = resultSet.getInt("id");
                 String name = resultSet.getString("name");
@@ -49,6 +50,12 @@ public class StudentServlet extends HttpServlet {
         } finally {
             JDBCUtil.close(connection, statement, resultSet);
         }
+
+        //requst服务端请求，response回应
+        //这行代码将 list 存入 request 作用域，key 为 "list"
+        req.setAttribute("list",list);
+        //转发到student_list.jsp进行访问
+        req.getRequestDispatcher("student_list.jsp").forward(req,resp);
     }
 
 }
