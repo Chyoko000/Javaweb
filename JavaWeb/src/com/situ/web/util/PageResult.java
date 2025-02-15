@@ -8,11 +8,11 @@ public class PageResult<T> {
     private Integer count;
     private List<T> data;
 
-    public PageResult(List<T> data, Integer count, String msg, Integer code) {
-        this.data = data;
-        this.count = count;
-        this.msg = msg;
+    public PageResult(Integer code, String msg, Integer count, List<T> data) {
         this.code = code;
+        this.msg = msg;
+        this.count = count;
+        this.data = data;
     }
 
     public Integer getCode() {

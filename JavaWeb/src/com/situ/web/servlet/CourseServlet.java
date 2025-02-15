@@ -1,6 +1,10 @@
 package com.situ.web.servlet;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.situ.web.pojo.Course;
+import com.situ.web.service.ICourseService;
+import com.situ.web.service.impl.CourseServiceImpl;
+import com.situ.web.service.impl.CourseServiceImpl;
 import com.situ.web.util.PageResult;
 
 import javax.servlet.ServletException;
@@ -12,6 +16,7 @@ import java.io.IOException;
 
 @WebServlet("/course")
 public class CourseServlet extends HttpServlet {
+    private ICourseService courseService=new CourseServiceImpl();
 
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -28,9 +33,9 @@ public class CourseServlet extends HttpServlet {
 
     private void selectByPage(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         System.out.println("CourseServlet.selectByPage");
-        String page=req.getParameter("paga");
+        String page=req.getParameter("page");//写错
         String limit=req.getParameter("limit");
-        PageResult<Course> pageResult=courseSercice.selectByPage(Integer.parseInt(page),Integer.parseInt(limit));
+        PageResult<Course> pageResult=courseService.selectByPage(Integer.parseInt(page),Integer.parseInt(limit));
 
         resp.setContentType("text/html;charset=UTF-8");
         ObjectMapper objectMapper=new ObjectMapper();

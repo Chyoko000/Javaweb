@@ -9,7 +9,7 @@
 <html>
 <head>
     <title>Title</title>
-    <link href="./static/layui/css/layui.css">
+    <link rel="stylesheet" href="./static/layui/css/layui.css">
 </head>
 <body>
 <table class="layui-hide"id="tableId"lay-filter="tableId"></table>
@@ -21,14 +21,14 @@
             var table = layui.table;
 
             table.render({
-                elem: '#test'
+                elem: '#tableId'//这个地方没改名字
                 ,url:'/course?method=selectByPage'
 
                 ,cols: [[
-                    {type:'radio'}
-                    ,{field:'id', width:80, title: 'ID', sort: true}
-                    ,{field:'username', width:80, title: '用户名'}
-                    ,{field:'credit', width:80, title: '学分'}
+                    {type:'checkbox',fixed:'left'},
+                    ,{field:'id',  title: 'ID', sort: true}
+                    ,{field:'name',  title: '用户名'}
+                    ,{field:'credit',  title: '学分'}
                 ]]
                 ,page: true
             });
