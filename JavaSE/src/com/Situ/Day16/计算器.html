@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="utf-8">
+    <title></title>
+
 </head>
 <body>
 <table>
@@ -24,7 +25,7 @@
     </tr>
     <tr>
         <td>
-            <input type="button" value=" + " onclick="cal('+')"/>
+            <input type="button" value=" + " onclick="add('+')"/>
         </td>
         <td>
             <input type="button" value=" - " onclick="cal('-')"/>
@@ -44,19 +45,16 @@
     </tr>
 </table>
 
-<script>
+<script type="text/javascript">
     function cal(type) {
         var num1 = document.getElementById('num1Id').value;
         var num2 = document.getElementById('num2Id').value;
+        // '2+3'  '2-3'
         var result = eval(parseInt(num1) + type + parseInt(num2));
         var resultObj = document.getElementById('resultId');
         resultObj.value = result;
     }
-    function cal(type){
-        var num1=document.getElementById('numId').value;
-        var num2=document.getElementById('num2Id').value;
-        var result=eval()
-    }
+
 
     function cal1(type) {
         var num1 = document.getElementById('num1Id').value;
@@ -65,16 +63,16 @@
         switch (type) {
             case '+':
                 result = parseInt(num1) + parseInt(num2);
-                break
+                break;
             case '-':
                 result = parseInt(num1) - parseInt(num2);
-                break
+                break;
             case '*':
                 result = parseInt(num1) * parseInt(num2);
-                break
+                break;
             case '/':
                 result = parseInt(num1) / parseInt(num2);
-                break
+                break;
         }
         var resultObj = document.getElementById('resultId');
         resultObj.value = result;

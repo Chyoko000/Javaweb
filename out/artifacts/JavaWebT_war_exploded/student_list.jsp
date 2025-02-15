@@ -19,27 +19,29 @@
     //只能用request和reponse
     List<Student>list=(List<Student>) request.getAttribute("list");
 %>
-<button class="btn btn-default">（默认样式）Default</button>
-<button class="btn btn-primary">（首选项）Primary</button>
-<button class="btn btn-success">（成功）Success</button>
-<button class="btn btn-link">（链接）Link</button>
-<a href="" class="btn btn-success">超链接</a>
+<%--<button class="btn btn-default">（默认样式）Default</button>--%>
+<%--<button class="btn btn-primary">（首选项）Primary</button>--%>
+<%--<button class="btn btn-success">（成功）Success</button>--%>
+<%--<button class="btn btn-link">（链接）Link</button>--%>
+<%--<a href="" class="btn btn-success">超链接</a>--%>
 <table class="table table-striped table-bordered table-hover table-condensed">
     <tr>
         <td>ID</td>
         <td>名字</td>
         <td>年龄</td>
         <td>性别</td>
+        <td>删除</td>
     </tr>
     <%
         for (Student student : list) {//当list全部遍历完
     %>
 
     <tr>
-        <td><%student.getId()%></td>
-        <td><%student.getName()%></td>
-        <td><%student.getAge()%></td>
-        <td><%student.getGender()%></td>
+        <td><%=student.getId()%></td>
+        <td><%=student.getName()%></td>
+        <td><%=student.getAge()%></td>
+        <td><%=student.getGender()%></td>
+        <td><a href="/deletstudent">删除</a></td>
     </tr>
     <%
         }
