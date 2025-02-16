@@ -1,22 +1,15 @@
 package com.situ.web.pojo;
 
-public class Course {
+public class City {
     private Integer id;
     private String name;
-    private Integer credit;
 
-    public Course() {
+    public City() {
     }
 
-    public Course(String name, Integer credit) {
-        this.name = name;
-        this.credit = credit;
-    }
-
-    public Course(Integer id, String name, Integer credit) {
+    public City(Integer id, String name) {
         this.id = id;
         this.name = name;
-        this.credit = credit;
     }
 
     public Integer getId() {
@@ -35,20 +28,11 @@ public class Course {
         this.name = name;
     }
 
-    public Integer getCredit() {
-        return credit;
-    }
-
-    public void setCredit(Integer credit) {
-        this.credit = credit;
-    }
-
     @Override
     public String toString() {
-        return "Course{" +
+        return "Province{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", credit=" + credit +
                 '}';
     }
 }
