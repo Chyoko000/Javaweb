@@ -8,7 +8,7 @@
 <body>
 <form class="layui-form layui-form-pane" action="">
     <div class="layui-form-item">
-        <label class="layui-form-label">课程名</label>
+        <label class="layui-form-label">课程</label>
         <div class="layui-input-block">
             <input type="text" name="name" autocomplete="off" placeholder="请输入" lay-verify="required"
                    class="layui-input">

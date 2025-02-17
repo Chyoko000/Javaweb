@@ -12,6 +12,7 @@ public class PageResult<T> {
         this.code = code;
         this.msg = msg;
         this.count = count;
+        //计算有多少页数
         this.data = data;
     }
 

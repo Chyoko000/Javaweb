@@ -11,7 +11,7 @@ import java.io.IOException;
 
 //     /* 代表拦截所有
 //第十四行注释掉这个过滤器就不拦截了
-//@WebFilter(filterName = "login", urlPatterns = "/*")
+@WebFilter(filterName = "login", urlPatterns = "/*")
 public class LoginFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -40,6 +40,7 @@ public class LoginFilter implements Filter {
         if (uri.startsWith("/static")  // 访问/static都放行
                 || uri.equals("/login.jsp")
                 || uri.equals("/fail.jsp")
+                || uri.equals("/verifyCode")
                 || (uri.equals("/user") && "login".equals(method))) {
             filterChain.doFilter(servletRequest, servletResponse);
             return;

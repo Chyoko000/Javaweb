@@ -3,6 +3,9 @@ package com.situ.web.servlet;
 import com.situ.web.pojo.User;
 import com.situ.web.service.IUserService;
 import com.situ.web.service.impl.UserServiceImpl;
+import com.situ.web.util.JDBCUtil;
+import com.situ.web.util.JSONUtil;
+import com.situ.web.util.Result;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -45,17 +48,27 @@ public class UserServlet extends HttpServlet {
         System.out.println("UserServlet.login");
         String name = req.getParameter("name");
         String password = req.getParameter("password");
+        String code = req.getParameter("code");
+        HttpSession session = req.getSession();
+        String codeInSession = (String) session.getAttribute("codeInSession");
+
+        if (!codeInSession.equalsIgnoreCase(code)) {
+            JSONUtil.toJSON(resp, Result.error("验证码错误"));
+            return;
+        }
+
 
         User user = userService.login(name, password);
         if (user == null) {//没有这个用户
             //http://localhost:8080/
-            resp.sendRedirect("/fail.jsp");
+            //resp.sendRedirect("/fail.jsp");
+            JSONUtil.toJSON(resp, Result.error("登陆失败"));
         } else {//有这个用户登录成功
             //user用户信息放到sesion，作为登录的凭证
-            HttpSession session = req.getSession();
             session.setAttribute("user", user);
 
-            resp.sendRedirect("/");
+            //resp.sendRedirect("/");
+            JSONUtil.toJSON(resp, Result.ok("登陆成功"));
         }
     }
 }

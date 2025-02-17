@@ -1,4 +1,4 @@
-package com.situ.web;
+package com.situ.web.util;
 
 public class JDBCTest {
     public static void main(String[] args) {

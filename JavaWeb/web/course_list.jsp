@@ -52,7 +52,7 @@
                 cols: [[
                     {type: 'checkbox', fixed: 'left'},
                     {field:'id', title: 'ID', sort: true},
-                    {field:'name', title: '用户名'},
+                    {field:'name', title: '课程名'},
                     {field:'credit', title: '学分'},
                     {fixed: 'right', title:'操作', width: 134, minWidth: 125, templet: '#toolDemo'}
                 ]],

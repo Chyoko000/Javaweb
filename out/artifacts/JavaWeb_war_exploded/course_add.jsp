@@ -1,10 +1,4 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Gao
-  Date: 2025/2/14
-  Time: 13:44
-  To change this template use File | Settings | File Templates.
---%>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -14,7 +8,7 @@
 <body>
 <form class="layui-form layui-form-pane" action="">
     <div class="layui-form-item">
-        <label class="layui-form-label">课程名</label>
+        <label class="layui-form-label">课程</label>
         <div class="layui-input-block">
             <input type="text" name="name" autocomplete="off" placeholder="请输入" lay-verify="required"
                    class="layui-input">
