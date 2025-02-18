@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-public class JDBCDemo {
+public class  JDBCDemo {
     @Test
     public void test1() {
         //也是先声明后定义
