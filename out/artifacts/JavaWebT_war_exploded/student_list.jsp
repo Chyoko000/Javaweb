@@ -1,11 +1,7 @@
 <%@ page import="java.util.List" %>
-<%@ page import="com.situ.web.pojo.Student" %><%--
-  Created by IntelliJ IDEA.
-  User: c2543
-  Date: 2025/2/12
-  Time: 21:31
-  To change this template use File | Settings | File Templates.
---%>
+<%--导入包和页面设置--%>
+<%@ page import="com.situ.web.pojo.Teacher" %>
+<%@ page import="com.situ.web.pojo.Student" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -18,7 +14,9 @@
     //可以任意写Java代码
     //只能用request和reponse
     List<Student>list=(List<Student>) request.getAttribute("list");
+//    通过 request.getAttribute("list") 获取 StudentServlet 传来的学生数据列表。
 %>
+//
 <%--<button class="btn btn-default">（默认样式）Default</button>--%>
 <%--<button class="btn btn-primary">（首选项）Primary</button>--%>
 <%--<button class="btn btn-success">（成功）Success</button>--%>

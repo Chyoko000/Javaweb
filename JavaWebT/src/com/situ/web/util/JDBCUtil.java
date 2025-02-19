@@ -10,7 +10,8 @@ public class JDBCUtil {
     private static String url;
     private static String username;
     private static String password;
-    private JDBCUtil() {//默认操作//工具类（只提供静态方法的类）通常都不会被实例化，例如 Math、Collections。//规范做法就是 私有化构造方法，防止 new 出对象。
+    private JDBCUtil() {//默认操作//工具类（只提供静态方法的类）通常都不会被实例化，例如 Math、Collections。
+        // 规范做法就是 私有化构造方法，防止 new 新的jdbc对象。
     }
     static {//静态代码块，在类加载时候只会执行一次
         try {

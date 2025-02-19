@@ -3,6 +3,7 @@ package com.situ.web.pojo;
 import java.io.Serializable;
 
 public class Student implements Serializable {
+    //是 Java 中的 序列化 机制，通常用于将对象转换为字节流，以便进行存储或传输。
     private Integer id;
     private String name;
     private Integer age;
