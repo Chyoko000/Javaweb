@@ -26,10 +26,69 @@ import java.util.List;
 //写finally进行数据流关闭
 //转发到jsp
 //别忘了数据库语句也要改
+
+//String method=req.getParameter("method");
+//        switch (method){}输入各个功能
+//然后greate，再将代码写进里面并addthorw
+//为了使第一次的页面不报空若输入的量为null直接查找数据库
+//if(method==null||method.equals("")){
+//            method="selectAll";
+//        }
 @WebServlet("/teacher")
 public class TeacherServlet extends HttpServlet {
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String method=req.getParameter("method");
+        if (method==null||method.equals("")){
+            method="selectAll";
+        }switch (method){
+            case"selectAll":
+                selectAll(req,resp);
+                break;
+        }switch (method){
+            case"deleteById":
+                deleteById(req,resp);
+                break;
+        }
+    }
+
+    private void deleteById(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        String id=req.getParameter("id");
+        //id=网页请求的id
+        Connection connection = null;
+        PreparedStatement statement = null;
+        try {
+            //建立连接
+            connection = JDBCUtil.getConnection();
+            //定义sql语句
+            String sql = "DELETE FROM teacher WHERE id=?";
+            // 预编译 SQL 语句，返回 PreparedStatement 对象。
+            statement = connection.prepareStatement(sql);
+            //设置 SQL 语句中的第 1 个占位符 ? 的值，即要删除的 id。
+            statement.setInt(1, Integer.parseInt(id));
+            //执行 SQL 语句
+            statement.executeUpdate(); // 执行删除操作！！！
+            //将sql语句中的第一个占位符？替换
+            //将id转化为整数
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            JDBCUtil.close(connection, statement, null);//关闭链接
+            //关闭 ResultSet（结果集）
+            //关闭 Statement（SQL 执行对象，如 PreparedStatement）sql语句
+            //关闭 Connection（数据库连接）数据库链接
+        }
+        resp.sendRedirect("/teacher?method=selectAll");
+        //之前是重定向到student，以为之前student只负责查找现在刷新页面需要命令
+
+
+
+
+
+
+    }
+
+    private void selectAll(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         System.out.println("teacher链接成功");
         Connection connection=null;
         PreparedStatement statement=null;

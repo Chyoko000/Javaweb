@@ -28,7 +28,60 @@ public class StudentServlet extends HttpServlet {
         // 适用于同时处理 GET 和 POST 请求。
         //req（HttpServletRequest）：用于获取请求数据，比如表单参数、URL 参数等。
         //resp（HttpServletResponse）：用于返回响应数据，比如 HTML、JSON 或跳转页面。
+        String method=req.getParameter("method");
+        if(method==null||method.equals("")){
+            method="selectAll";
+        }
+        switch (method){
+            case"selectAll":
+                selectAll(req,resp);
+                //参数添加完毕之后greate
+                break;
+            case "deleteById":
+                deleteById(req,resp);
+                break;
+            case "add":
+                add(req,resp);
+                break;
+        }
         System.out.println("连接成功");
+
+    }//这里多删除了一个大括号
+
+    private void add(HttpServletRequest req, HttpServletResponse resp) {
+    }
+
+    private void deleteById(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        String id=req.getParameter("id");
+        //id=网页请求的id
+        Connection connection = null;
+        PreparedStatement statement = null;
+        try {
+            //建立连接
+            connection = JDBCUtil.getConnection();
+            //定义sql语句
+            String sql = "DELETE FROM student WHERE id=?";
+            // 预编译 SQL 语句，返回 PreparedStatement 对象。
+            statement = connection.prepareStatement(sql);
+            //设置 SQL 语句中的第 1 个占位符 ? 的值，即要删除的 id。
+            statement.setInt(1, Integer.parseInt(id));
+            //执行 SQL 语句
+            statement.executeUpdate(); // 执行删除操作！！！
+            //将sql语句中的第一个占位符？替换
+            //将id转化为整数
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            JDBCUtil.close(connection, statement, null);//关闭链接
+            //关闭 ResultSet（结果集）
+            //关闭 Statement（SQL 执行对象，如 PreparedStatement）sql语句
+            //关闭 Connection（数据库连接）数据库链接
+        }
+        resp.sendRedirect("/student?method=selectAll");
+        //之前是重定向到student，以为之前student只负责查找现在刷新页面需要命令
+    }
+
+    private void selectAll(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
@@ -59,7 +112,10 @@ public class StudentServlet extends HttpServlet {
                 System.out.println(student);
                 //遍历 list 并打印每个 Student 对象，方便调试。
             }
-        } catch (SQLException e) {
+        } catch (NumberFormatException e) {
+            return;
+        }
+        catch (SQLException e) {
             throw new RuntimeException(e);
         } finally {
             JDBCUtil.close(connection, statement, resultSet);
@@ -74,5 +130,4 @@ public class StudentServlet extends HttpServlet {
         //使用 RequestDispatcher 进行转发到student_list.jsp进行访问
         req.getRequestDispatcher("student_list.jsp").forward(req,resp);
     }
-
 }
