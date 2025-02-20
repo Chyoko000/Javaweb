@@ -48,10 +48,37 @@ public class StudentServlet extends HttpServlet {
 
     }//这里多删除了一个大括号
 
-    private void add(HttpServletRequest req, HttpServletResponse resp) {
+    private void add(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        String name=req.getParameter("name");
+        String age=req.getParameter("age");
+        String gender=req.getParameter("gender");
+        Connection connection = null;
+        PreparedStatement statement = null;
+        try {
+            connection=JDBCUtil.getConnection();
+            String sql = "INSERT INTO student(name, age, gender) VALUES(?, ?, ?)";
+            statement = connection.prepareStatement(sql);
+            //设置 SQL 语句中的第 1 个占位符 ? 的值，即要删除的 id。
+            //这里后边的改完了前边也要改
+            statement.setString(1, name);
+            statement.setInt(2, Integer.parseInt(age));
+            statement.setString(3, gender);
+
+            //执行 SQL 语句
+            statement.executeUpdate(); //
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }finally {
+            // 6. 关闭资源
+            JDBCUtil.close(connection, statement, null);
+        }
+
+        // 7. 数据添加成功后，重定向到学生列表页面
+        resp.sendRedirect("/student?method=selectAll");
     }
 
     private void deleteById(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        //定义内部需求的数值
         String id=req.getParameter("id");
         //id=网页请求的id
         Connection connection = null;
@@ -131,3 +158,30 @@ public class StudentServlet extends HttpServlet {
         req.getRequestDispatcher("student_list.jsp").forward(req,resp);
     }
 }
+
+
+
+
+
+//备用
+//        Connection connection = null;
+//        PreparedStatement statement = null;
+//        try {
+//        String id=req.getParameter("id");
+//        String name=req.getParameter("name");
+//        String age=req.getParameter("age");
+//        String gender=req.getParameter("gender");
+//        connection = JDBCUtil.getConnection();
+//        String sql = "UPDATE student SET name=?,age=?,gender=? WHERE id=?";
+//        statement = connection.prepareStatement(sql);
+//            statement.setString(1, name);
+//            statement.setInt(2, Integer.parseInt(age));
+//        statement.setString(3,gender);
+//            statement.setInt(4, Integer.parseInt(id));
+//        statement.executeUpdate();
+//        } catch (SQLException e) {
+//        throw new RuntimeException(e);
+//        } finally {
+//                JDBCUtil.close(connection, statement, null);
+//        }
+//                resp.sendRedirect("/student?method=selectAll");

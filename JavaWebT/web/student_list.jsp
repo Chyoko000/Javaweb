@@ -22,6 +22,10 @@
 <%--<button class="btn btn-success">（成功）Success</button>--%>
 <%--<button class="btn btn-link">（链接）Link</button>--%>
 <%--<a href="" class="btn btn-success">超链接</a>--%>
+
+<%--添加一个超链接--%>
+<a class="btn btn-success" href="student_add.jsp">添加</a>
+<%--<a> 标签：这是一个超链接，btn-success 表示绿色按钮--%>
 <table class="table table-striped table-bordered table-hover table-condensed">
     <tr>
         <td>ID</td>
