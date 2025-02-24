@@ -25,7 +25,8 @@
         <td>名字</td>
         <td>年龄</td>
         <td>国籍</td>
-        <td>操作</td>
+        <td colspan="2" align="center">操作</td>
+
     </tr>
     <%
         for (Teacher teacher : list) {//当list全部遍历完
@@ -37,6 +38,7 @@
         <td><%=teacher.getAge()%></td>
         <td><%=teacher.getAddress()%></td>
         <td><a href="javascript:void(0)" onclick="deleteById(<%= teacher.getId() %>)">删除</a></td>
+        <td><a href="javascript:void(0)" onclick="deleteById(<%= teacher.getId() %>)">修改</a></td>
     </tr>
     <%
         }

@@ -24,29 +24,99 @@ public class StudentServlet extends HttpServlet {
     //访问servlet默认访问service方法直接输入ser就能直接打出后面的
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        //service() 方法是 HttpServlet 提供的默认方法，它会自动调用 doGet() 或 doPost()，
-        // 适用于同时处理 GET 和 POST 请求。
-        //req（HttpServletRequest）：用于获取请求数据，比如表单参数、URL 参数等。
-        //resp（HttpServletResponse）：用于返回响应数据，比如 HTML、JSON 或跳转页面。
-        String method=req.getParameter("method");
-        if(method==null||method.equals("")){
-            method="selectAll";
+        System.out.println("StudentServlet.service");
+        req.setCharacterEncoding("UTF-8");
+        String method = req.getParameter("method");
+        if (method == null || method.equals("")) {
+            method = "selectAll";
         }
-        switch (method){
-            case"selectAll":
-                selectAll(req,resp);
-                //参数添加完毕之后greate
+        switch (method) {
+            case "selectAll":
+                selectAll(req, resp);
                 break;
             case "deleteById":
-                deleteById(req,resp);
+                deleteById(req, resp);
                 break;
             case "add":
-                add(req,resp);
+                add(req, resp);
+                break;
+            case "toUAdd":
+                toUAdd(req, resp);
+                break;
+            case "toSAdd":
+                toSAdd(req, resp);
                 break;
         }
-        System.out.println("连接成功");
-
     }//这里多删除了一个大括号
+
+    private void toSAdd(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+        String id=req.getParameter("id");
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        //用于存储sql查询数据
+        Student student=null;
+        try {
+            connection = JDBCUtil.getConnection();
+            String sql = "SELECT id,name,age,gender FROM student WHERE id=?";
+            statement = connection.prepareStatement(sql);
+            statement.setInt(1, Integer.parseInt(id));  // 绑定参数
+            resultSet = statement.executeQuery();
+            //execute执行Query查询
+            while (resultSet.next()){
+                String name=resultSet.getString("name");
+                int age =resultSet.getInt("age");
+                String gender=resultSet.getString("gender");
+                student=new Student(Integer.parseInt(id),name,age,gender);
+            }
+
+
+        } catch (NumberFormatException e) {
+            return;
+        }
+        catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            JDBCUtil.close(connection, statement, resultSet);
+            //finally 代码块无论是否发生异常都会执行。
+            //JDBCUtil.close(connection, statement, resultSet);
+            // 关闭数据库连接，释放资源，防止内存泄漏。
+        }
+        //// 将查询到的 student 对象放入 request 作用域中
+        //将查询到的 student 对象通过 setAttribute 方法存入 req 对象中，
+        // 键名为 "student"。这样后续转发的 JSP 页面可以通过该键名获取到学生数据。
+        req.setAttribute("student", student);
+        // 转发到 student_update.jsp 页面，注意此时的转发不会改变 URL
+        req.getRequestDispatcher("/student_update.jsp").forward(req, resp);
+        //内部转发getRequestDispatcher
+    }
+
+    private void toUAdd(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        //这是编辑的第二次跳转
+        String id=req.getParameter("id");
+        String name=req.getParameter("name");
+        String age=req.getParameter("age");
+        String gender=req.getParameter("gender");
+        Connection connection = null;
+        PreparedStatement statement = null;
+        try {
+            connection = JDBCUtil.getConnection();
+            String sql = "UPDATE student SET name=?,age=?,gender=? WHERE id=?";
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, name);
+            statement.setInt(2, Integer.parseInt(age));
+            statement.setString(3, gender);
+            statement.setInt(4, Integer.parseInt(id));
+            System.out.println(statement);
+            int count = statement.executeUpdate();
+            System.out.println("count: " + count);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            JDBCUtil.close(connection, statement, null);
+        }
+        resp.sendRedirect("/student?method=selectAll");
+    }
 
     private void add(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String name=req.getParameter("name");
@@ -74,6 +144,7 @@ public class StudentServlet extends HttpServlet {
         }
 
         // 7. 数据添加成功后，重定向到学生列表页面
+
         resp.sendRedirect("/student?method=selectAll");
     }
 

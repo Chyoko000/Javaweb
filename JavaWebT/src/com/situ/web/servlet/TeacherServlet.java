@@ -38,18 +38,50 @@ import java.util.List;
 public class TeacherServlet extends HttpServlet {
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("UTF-8");
         String method=req.getParameter("method");
         if (method==null||method.equals("")){
             method="selectAll";
-        }switch (method){
-            case"selectAll":
-                selectAll(req,resp);
+        }switch (method) {
+            case "selectAll":
+                selectAll(req, resp);
                 break;
-        }switch (method){
-            case"deleteById":
-                deleteById(req,resp);
+            case "deleteById":
+                deleteById(req, resp);
+                break;
+            case "add":
+                add(req,resp);
                 break;
         }
+    }
+
+    private void add(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        String name=req.getParameter("name");
+        String age=req.getParameter("age");
+        String adress=req.getParameter("adress");
+        Connection connection = null;
+        PreparedStatement statement = null;
+        try {
+            connection=JDBCUtil.getConnection();
+            String sql = "INSERT INTO student(name, age, adress) VALUES(?, ?, ?)";
+            statement = connection.prepareStatement(sql);
+            //设置 SQL 语句中的第 1 个占位符 ? 的值，即要删除的 id。
+            //这里后边的改完了前边也要改
+            statement.setString(1, name);
+            statement.setInt(2, Integer.parseInt(age));
+            statement.setString(3, adress);
+
+            //执行 SQL 语句
+            statement.executeUpdate(); //
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }finally {
+            // 6. 关闭资源
+            JDBCUtil.close(connection, statement, null);
+        }
+
+        // 7. 数据添加成功后，重定向到学生列表页面
+        resp.sendRedirect("/teacher?method=selectAll");
     }
 
     private void deleteById(HttpServletRequest req, HttpServletResponse resp) throws IOException {
@@ -67,7 +99,7 @@ public class TeacherServlet extends HttpServlet {
             //设置 SQL 语句中的第 1 个占位符 ? 的值，即要删除的 id。
             statement.setInt(1, Integer.parseInt(id));
             //执行 SQL 语句
-            statement.executeUpdate(); // 执行删除操作！！！
+            statement.executeUpdate(); // 执行操作！！！
             //将sql语句中的第一个占位符？替换
             //将id转化为整数
         } catch (SQLException e) {

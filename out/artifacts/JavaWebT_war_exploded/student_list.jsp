@@ -22,13 +22,17 @@
 <%--<button class="btn btn-success">（成功）Success</button>--%>
 <%--<button class="btn btn-link">（链接）Link</button>--%>
 <%--<a href="" class="btn btn-success">超链接</a>--%>
+
+<%--添加一个超链接--%>
+<a class="btn btn-success" href="student_add.jsp">添加</a>
+<%--<a> 标签：这是一个超链接，btn-success 表示绿色按钮--%>
 <table class="table table-striped table-bordered table-hover table-condensed">
     <tr>
         <td>ID</td>
         <td>名字</td>
         <td>年龄</td>
         <td>性别</td>
-        <td>操作</td>
+        <td colspan="2" align="center">操作</td>
     </tr>
     <%
         for (Student student : list) {//当list全部遍历完
@@ -48,7 +52,10 @@ ${student.id}
 当 JSP 运行时，它会自动调用 getId() 方法，并将返回的值填充到页面中。--%>
 
 <%--使用弹窗方法删除--%>
+<%--以下是两种方式，一种是直接返回到servlet请求，一个是跳转页面，有页面返回请求再刷新页面--%>
         <td><a href="javascript:void(0)" onclick="deleteById(<%= student.getId() %>)">删除</a></td>
+<%--这里跟上边那个不一样--%>
+        <td><a href="/student?method=toSAdd&id=<%= student.getId() %>">修改</a></td>
 <%--onclick="..." 绑定点击事件，当用户点击“删除”时会触发 deleteById() 函数。
 javascript:void(0) 让链接点击后不跳转任何页面，防止空链接影响页面行为。--%>
     </tr>
@@ -64,6 +71,7 @@ javascript:void(0) 让链接点击后不跳转任何页面，防止空链接影�
         if(isDelete){
             //如果用户确认删除（isDelete 为 true），执行删除操作。
             location.href="/student?method=deleteById&id="+id;
+            //如果把 id 放在引号内部，就会变成一个固定的字符串 "id"，而不是变量的值，无法达到动态传参的效果。
             //用于跳转到新的 URL，相当于让浏览器访问：+id 变量 id 的值拼接到 URL 中
             //两个参数
         }
