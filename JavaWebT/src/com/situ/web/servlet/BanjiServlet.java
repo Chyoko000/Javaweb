@@ -46,7 +46,6 @@ public class BanjiServlet extends HttpServlet {
             case "selectByPage":
                 selectByPage(req, resp);
                 break;
-
             case "deleteById":
                 deleteById(req, resp);
                 break;
