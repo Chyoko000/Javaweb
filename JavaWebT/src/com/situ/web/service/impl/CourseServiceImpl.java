@@ -1,11 +1,11 @@
-package service.impl;
+package com.situ.web.service.impl;
 
 import com.situ.web.dao.ICourseDao;
 import com.situ.web.dao.impl.CourseDaoImpl;
 import com.situ.web.pojo.Course;
 import com.situ.web.pojo.query.CourseQuery;
 import com.situ.web.util.PageResult;
-import service.ICourseService;
+import com.situ.web.service.ICourseService;
 
 import java.util.List;
 

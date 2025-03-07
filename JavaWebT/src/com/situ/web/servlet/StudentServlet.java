@@ -34,6 +34,9 @@ public class StudentServlet extends HttpServlet {
             case "selectAll":
                 selectAll(req, resp);
                 break;
+            case "selectBypage":
+                selectBypage(req,resp);
+                break;
             case "deleteById":
                 deleteById(req, resp);
                 break;
@@ -48,6 +51,14 @@ public class StudentServlet extends HttpServlet {
                 break;
         }
     }//这里多删除了一个大括号
+
+    private void selectBypage(HttpServletRequest req, HttpServletResponse resp) {
+        String pageNo=req.getParameter("pageNo");
+    //定义字符串pageNo为取得
+        String pageSize=req.getParameter("pageSize");
+
+
+    }
 
     private void toSAdd(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         String id=req.getParameter("id");
@@ -164,7 +175,7 @@ public class StudentServlet extends HttpServlet {
             //设置 SQL 语句中的第 1 个占位符 ? 的值，即要删除的 id。
             statement.setInt(1, Integer.parseInt(id));
             //执行 SQL 语句
-            statement.executeUpdate(); // 执行删除操作！！！
+            statement.executeUpdate(); // 执行操作！！！
             //将sql语句中的第一个占位符？替换
             //将id转化为整数
         } catch (SQLException e) {

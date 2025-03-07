@@ -17,7 +17,6 @@ import java.util.List;
 public class BanjiServlet extends HttpServlet {
     //private IBanjiDao banjiDao = new BanjiDaoImpl();
     private IBanjiService banjiService = new BanjiServiceImpl();
-    //声明一个
 
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -64,19 +63,23 @@ public class BanjiServlet extends HttpServlet {
 
 
     private void selectByPage(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        System.out.println("BanjiServlet.selectByPage");
+
         String pageNo = req.getParameter("pageNo");
         String pageSize = req.getParameter("pageSize");
-        System.out.println("pageNo" +pageNo);
+
         if (pageNo == null || pageNo.equals("")) {
             pageNo = "1";
-        }
+        }//第一次传入的时候因为是空的所以默认传入第一页
         if (pageSize == null || pageSize.equals("")) {
             pageSize = "5";
         }
 
+        //这里是声明pageinfo是这个工具类内容来自于
+        //第九行声明的一个private IBanjiService banjiService = new BanjiServiceImpl
+        //参数是pageno和pagesize
+        //进入接口之后再交由service执行
         PageInfo<Banji> pageInfo = banjiService.selectByPage(Integer.parseInt(pageNo), Integer.parseInt(pageSize));
-        System.out.println(pageInfo);
+
         req.setAttribute("pageInfo", pageInfo);
         req.getRequestDispatcher("/banji_list.jsp").forward(req, resp);
     }

@@ -1,12 +1,18 @@
 package com.situ.web.util;
 
 import java.util.List;
-
+//封装就是将数据或函数等集合在一个个的单元中（我们称之为类）
+//是否可以理解为写一个类就是封装
+//封装一个工具类
 public class PageInfo<T> {
-    //private List<Banji> list;
+    //封装一个pageinfo需要的信息
+    //当前页的数据使用泛型T使其能适应与更多servlet
     private List<T> list;
+    //页的总数
     private Integer totalPage;
+    //第几页
     private Integer pageNo;
+
     private Integer pageSize;
 
     public PageInfo() {

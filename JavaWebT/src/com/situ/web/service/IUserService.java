@@ -1,4 +1,4 @@
-package service;
+package com.situ.web.service;
 
 import com.situ.web.pojo.User;
 
