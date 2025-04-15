@@ -9,7 +9,7 @@ import com.situ.web.service.ICourseService;
 
 import java.util.List;
 
-public class CourseServiceImpl implements ICourseService {
+public class            CourseServiceImpl implements ICourseService {
     private ICourseDao courseDao = new CourseDaoImpl();
 
     @Override
